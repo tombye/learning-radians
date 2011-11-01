@@ -1,1 +1,119 @@
-Test index page
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Radians learning</title>
+		<style>
+			body {
+				font-size:1;
+				color:#333;
+				font-family:Georgia, Arial, Helvetica, Sans-serif;
+			}
+			#canvas {
+				width:400px;
+				border:solid black 1px;
+				height:400px;
+			}
+			#wrapper {
+				width:402px;
+				height:402px;
+				position:relative;
+			}
+			form {
+				width:600px;
+				position:absolute;
+				top:20px;
+				right:20px;
+			}
+			input {
+				width:40px;
+			}
+			#x,
+			#y {
+				width:30px;
+
+			}
+			#startAngle,
+			#endAngle {
+				width:100px;
+			}
+			#update {
+				width:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Learning about radians</h1>
+		<div id="wrapper">
+			<canvas id="canvas" width="400" height="400"></canvas>
+		</div>
+		<form action="" method="">
+			<label for="x">x</label>
+			<input id="x" name="x" type="text" />
+			<label for="y">y</label>
+			<input id="y" name="y" type="text" />
+			<label for="radius">radius</label>
+			<input id="radius" name="radius" type="text" />
+			<label for="startAngle">startAngle</label>
+			<input id="startAngle" name="startAngle" type="text" />
+			<label for="endAngle">endAngle</label>
+			<input id="endAngle" name="endAngle" type="text" />
+			<input id="update" type="submit" />
+		</form>
+		<script type="text/javascript">
+			(function () {
+			 var elms = {
+				x : document.getElementById('x'),
+				y : document.getElementById('y'),
+				radius : document.getElementById('radius'),
+				startAngle : document.getElementById('startAngle'),
+				endAngle : document.getElementById('endAngle')
+				},
+			     canvas = document.getElementById('canvas'),
+			     x,
+			     y,
+			     radius,
+			     startAngle,
+			     endAngle,
+			     ctx,
+			     update = document.getElementById('update'),
+			     draw;
+
+			ctx = canvas.getContext('2d');
+
+			draw = function () {
+				x = elms.x.value;
+				y = elms.y.value;
+				radius = elms.radius.value;
+				startAngle = elms.startAngle.value;
+				endAngle = elms.endAngle.value;
+
+				if (startAngle.match(/Math/)) {
+					startAngle = eval(startAngle);
+				}
+
+				if (endAngle.match(/Math/)) {
+					endAngle = eval(endAngle);
+				}
+				
+				ctx.clearRect(0, 0, 400, 400);
+				
+				// draw shape
+				ctx.beginPath();
+				ctx.arc(x, y, radius, startAngle, endAngle, false);
+				ctx.stroke();
+				ctx.closePath();
+				
+				//mark centre
+				ctx.beginPath();
+				ctx.arc(x, y, 5, 0, Math.PI*2, false); 
+				ctx.closePath();
+				ctx.fill();
+
+				return false;
+			};
+
+			update.onclick = draw;
+			 }());
+		</script>
+	</body>
+</html>
