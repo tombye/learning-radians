@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Radians learning 2</title>
+		<style>
+			body {
+				font-size:1;
+				color:#333;
+				font-family:Georgia, Arial, Helvetica, Sans-serif;
+			}
+			#canvas {
+				width:400px;
+				border:solid black 1px;
+				height:400px;
+			}
+			#wrapper {
+				width:402px;
+				height:402px;
+				position:relative;
+			}
+			form {
+				width:600px;
+				position:absolute;
+				top:20px;
+				right:20px;
+			}
+			input {
+				width:40px;
+			}
+			#x,
+			#y {
+				width:30px;
+
+			}
+			#startAngle,
+			#endAngle {
+				width:100px;
+			}
+			#update {
+				width:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Learning about radians 2</h1>
+		<h2>Using Radians to set points on a circle</h2>
+		<div id="wrapper">
+			<canvas id="canvas" width="400" height="400"></canvas>
+		</div>
+		<form action="" method="">
+			<label for="dots">Dots in the circle</label>
+			<input id="dots" name="dots" type="text" value="8" />
+			<label for="radius">Radius of the circle</label>
+			<input id="radius" name="radius" type="text" value="100" />
+			<label for="colour">Colour of the dots</label>
+			<input id="colour" name="colour" type="text" value="blue" />
+			<input id="update" type="submit" />
+		</form>
+		<p>Radians * Radius = distance</p>
+		<p>Radians = distance / Radius</p>
+		<p>Radius = distance / Radians</p>
+		<script type="text/javascript">
+			var getPosition = function (angle, radius) {				
+				//get point 1
+				var circ,
+				    percent,
+				    dist,
+				    radians;
+
+				circ = 2 * Math.PI * radius;
+				percent = angle / 360;
+				dist = circ * percent;
+				radians = dist / radius;
+
+				opp = Math.sin(radians) * radius;
+				adj = Math.cos(radians) * radius;
+
+				return {
+					'x' : opp,
+					'y' : adj
+				};
+			};
+			(function () {
+			 var elms = {
+				dots : document.getElementById('dots'),
+				radius : document.getElementById('radius'),
+				colour : document.getElementById('colour')
+				},
+			     canvas = document.getElementById('canvas'),
+			     radius,
+			     startAngle,
+			     endAngle,
+			     ctx,
+			     centre,
+			     update = document.getElementById('update'),
+			     draw;
+
+			ctx = canvas.getContext('2d');
+				
+			ctx.clearRect(0, 0, 400, 400);
+
+			//mark centre
+			ctx.fillStyle = "red";
+			ctx.beginPath();
+			ctx.arc(200, 200, 5, 0, Math.PI*2, false); 
+			ctx.closePath();
+			ctx.fill();
+
+			draw = function () {
+			    var dots,
+				radius,
+				pos,
+				newPos;
+
+			    	radius = elms.radius.value;
+				dots = elms.dots.value;
+				colour = elms.colour.value;
+				
+				//ctx.clearRect(0, 0, 400, 400);
+
+				for (var i = 1, j = (dots + 1); i < j; i++) {
+
+					deg = (360 / dots) * i;
+
+					pos = getPosition(deg, radius);
+					newPos = { x : (pos.x + 200), y : (200 - pos.y) };
+					//mark centre
+					ctx.fillStyle = colour;
+					ctx.beginPath();
+					ctx.arc(newPos.x, newPos.y, 5, 0, Math.PI*2, false); 
+					ctx.closePath();
+					ctx.fill();
+
+				}
+
+				return false;
+			};
+
+			update.onclick = draw;
+			draw();
+			 }());
+		</script>
+	</body>
+</html>
