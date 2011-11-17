@@ -18,6 +18,13 @@
 				height:402px;
 				position:relative;
 			}
+			#info {
+				width:560px;
+				position:absolute;
+				top:130px;
+				left:440px;
+				font-size:0.9em;
+			}
 			form {
 				width:600px;
 				position:absolute;
@@ -46,6 +53,22 @@
 		<h2>Using Radians to set points on a circle</h2>
 		<div id="wrapper">
 			<canvas id="canvas" width="400" height="400"></canvas>
+		</div>
+		<div id="info">
+			<p>To plot a point on the circumference of a circle you need to know its vector (the x,y distance it needs to travel) from the centrepoint.</p>
+			<p>You get this using the trigonomic equation of Sin = Opposite / Hypotenuse (see <a href="http://www.bbc.co.uk/schools/gcsebitesize/maths/shapes/trigonometryrev1.shtml">here</a>).</p>
+			<p>The Math.sin method in JavaScript takes radians as its parameter so once you know the radian distance of the point you have the sin.</p>
+			<p>The length of the vector (the circle's radius) is the Hypotenuse.</p>
+			<p>With these two values you can work out the x (Adjacent) and y (Opposite) values.</p>
+			<p>For example, radians in a circle are PI x 2 (around 6.283) so:</p>
+			<p>Radius : 200px</p>
+			<p>Angle : 45 (45 / 360 = 0.125 of a circle)</p>
+			<p>Circumference : 1256.637</p>
+			<p>Radians of point : 6.283 * 0.125 = 0.785</p>
+			<p>Math.sin(0.785) = opposite / 7 (hypotenuse)</p>
+			<p>opposite (y) = Math.sin(0.785) * 7 = 4.949px</p>
+			<p>Math.cos(0.785) = adjacent / 7 (hypotenuse)</p>
+			<p>adjacent (x) = Math.cos(0.785) * 7 = 4.949px</p>
 		</div>
 		<form action="" method="">
 			<label for="dots">Dots in the circle</label>
